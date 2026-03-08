@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INCORME V - International Conferences in Management and Engineering | 22 Nov 2024</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1e3a8a',
+                        accent: '#7c3aed',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(30, 58, 138, 0.7), rgba(15, 23, 42, 0.9));
+        }
+        
+        .bio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            overflow-y: auto;
+        }
+        
+        .bio-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .bio-content-truncated {
+            max-height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bio-content-truncated::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #1e293b);
+        }
+        
+        .bio-content-truncated.expanded {
+            max-height: none;
+        }
+        
+        .bio-content-truncated.expanded::after {
+            display: none;
+        }
+        
+        .speaker-card {
+            transition: all 0.3s ease;
+        }
+        
+        .speaker-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #7c3aed;
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 bg-white">
+
+    <!-- Header/Navigation -->
+    <header class="fixed w-full z-50 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-blue-900 rounded-full flex items-center justify-center">
+                        <i data-lucide="globe" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <span class="font-display font-bold text-2xl text-blue-900 tracking-tight">INCORME</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-6">
+                    <a href="#registration" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-900 transition-colors">INCORME-V Registration</a>
+                    <a href="#showcase" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-900 transition-colors">Buy Business Showcase</a>
+                    <a href="#sponsorships" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-900 transition-colors">Sponsorships</a>
+                    <a href="#accommodation" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-900 transition-colors">Accommodation</a>
+                    <a href="#invitation" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-900 transition-colors">Letter of Invitation</a>
+                    <a href="#contact" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-900 transition-colors">Contact us</a>
+                </nav>
+                
+                <!-- Mobile menu button -->
+                <button class="lg:hidden p-2" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu" class="w-6 h-6 text-slate-700"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#registration" class="block text-slate-700 py-2">INCORME-V Registration</a>
+                <a href="#showcase" class="block text-slate-700 py-2">Buy Business Showcase</a>
+                <a href="#sponsorships" class="block text-slate-700 py-2">Sponsorships</a>
+                <a href="#accommodation" class="block text-slate-700 py-2">Accommodation</a>
+                <a href="#invitation" class="block text-slate-700 py-2">Letter of Invitation</a>
+                <a href="#contact" class="block text-slate-700 py-2">Contact us</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop" alt="London skyline" class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                International Conferences in<br>Management and Engineering
+            </h1>
+            
+            <p class="text-2xl md:text-4xl font-bold text-white mb-4">
+                ENGINEERs decide the future<span class="text-yellow-400">....!</span>
+            </p>
+            
+            <div class="text-xl md:text-2xl text-slate-300 mb-8">
+                <span class="font-bold text-white">INCORME - V</span><br>
+                London | 22 Nov. 2024
+            </div>
+            
+            <a href="#registration" class="inline-block px-10 py-4 bg-purple-700 hover:bg-purple-800 text-white font-bold text-lg rounded-lg transition-all hover:scale-105 shadow-lg">
+                Register now
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-slate-900 mb-4">About INCORME V</h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                    Applying, Facilitating and Disseminating Engineering and Technological Advancements
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="users" class="w-8 h-8 text-blue-900"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">30+ Speakers</h3>
+                    <p class="text-slate-600">World-class experts from 30+ countries</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="lightbulb" class="w-8 h-8 text-purple-700"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">Innovation Focus</h3>
+                    <p class="text-slate-600">Cutting-edge research and technology</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="network" class="w-8 h-8 text-indigo-700"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">Global Network</h3>
+                    <p class="text-slate-600">Connect with industry leaders</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers Section -->
+    <section id="speakers" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-slate-900 mb-4">Featured Speakers</h2>
+                <p class="text-lg text-slate-600">Click on any speaker to view their full biography</p>
+            </div>
+
+            <!-- Featured Speakers Grid (First 6) -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-12" id="featuredSpeakers">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- View All Button -->
+            <div class="text-center mb-12">
+                <button onclick="toggleAllSpeakers()" id="viewAllBtn" class="px-8 py-3 border-2 border-blue-900 text-blue-900 font-semibold rounded-lg hover:bg-blue-900 hover:text-white transition-all flex items-center gap-2 mx-auto">
+                    <span>View All Speakers</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5" id="viewAllIcon"></i>
+                </button>
+            </div>
+
+            <!-- All Speakers Grid (Hidden initially) -->
+            <div id="allSpeakersContainer" class="hidden">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6" id="allSpeakersGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bio Modal -->
+    <div id="bioModal" class="bio-modal" onclick="closeBioOnBackground(event)">
+        <div class="bg-slate-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" onclick="event.stopPropagation()">
+            <div class="sticky top-0 bg-slate-900 border-b border-slate-700 p-6 flex justify-between items-start">
+                <div>
+                    <h3 id="modalName" class="font-display text-3xl font-bold text-white mb-2"></h3>
+                    <p id="modalTitle" class="text-purple-400 text-lg"></p>
+                </div>
+                <button onclick="closeBio()" class="p-2 hover:bg-slate-800 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-6 h-6 text-slate-400"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div id="modalBio" class="bio-content-truncated text-slate-300 leading-relaxed space-y-4 text-base"></div>
+                <button id="readMoreBtn" onclick="toggleBioExpand()" class="mt-6 text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-2 transition-colors">
+                    <span>Read more</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="py-20 bg-slate-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-display text-4xl font-bold text-center text-slate-900 mb-12">Conference Schedule</h2>
+            
+            <div class="space-y-6">
+                <div class="bg-white rounded-xl p-6 shadow-md flex gap-6 items-start">
+                    <div class="flex-shrink-0 w-20 h-20 bg-blue-100 rounded-xl flex items-center justify-center">
+                        <span class="text-xl font-bold text-blue-900">09:00</span>
+                    </div>
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full mb-2">Opening</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-1">Registration & Welcome Coffee</h3>
+                        <p class="text-slate-600">Network with fellow attendees and pick up your conference materials</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-md flex gap-6 items-start">
+                    <div class="flex-shrink-0 w-20 h-20 bg-purple-100 rounded-xl flex items-center justify-center">
+                        <span class="text-xl font-bold text-purple-900">10:00</span>
+                    </div>
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-purple-100 text-purple-800 text-sm font-semibold rounded-full mb-2">Keynote</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-1">Global Economic Trends</h3>
+                        <p class="text-slate-600">Dr Harry G. Broadman explores emerging market investment strategies</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-md flex gap-6 items-start">
+                    <div class="flex-shrink-0 w-20 h-20 bg-indigo-100 rounded-xl flex items-center justify-center">
+                        <span class="text-xl font-bold text-indigo-900">14:00</span>
+                    </div>
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 text-sm font-semibold rounded-full mb-2">Workshop</span>
+                        <h3 class="text-xl font-bold text-slate-900 mb-1">AI in Research Methods</h3>
+                        <p class="text-slate-600">Hands-on session with IBM's Quality Engineering team</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Events (Less prominent) -->
+    <section id="past-events" class="py-16 bg-white border-t">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-display text-2xl font-bold text-slate-500 mb-8 text-center">Past Events</h2>
+            
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="bg-slate-100 rounded-lg p-4 opacity-60 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-slate-700">INCORME - IV</h4>
+                    <p class="text-sm text-slate-500">15 June 2023</p>
+                </div>
+                <div class="bg-slate-100 rounded-lg p-4 opacity-60 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-slate-700">INCORME - III</h4>
+                    <p class="text-sm text-slate-500">26 April 2019</p>
+                </div>
+                <div class="bg-slate-100 rounded-lg p-4 opacity-60 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-slate-700">INCORME - II</h4>
+                    <p class="text-sm text-slate-500">2 Dec 2017</p>
+                </div>
+                <div class="bg-slate-100 rounded-lg p-4 opacity-60 hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold text-slate-700">INCORME - I</h4>
+                    <p class="text-sm text-slate-500">28 Nov 2016</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="registration" class="py-20 bg-gradient-to-br from-blue-900 to-purple-900">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="font-display text-4xl font-bold text-white mb-6">Ready to Join INCORME V?</h2>
+            <p class="text-xl text-blue-100 mb-8">Secure your spot at the premier conference for Management and Engineering</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition-all hover:scale-105">
+                    Register Now - £299
+                </button>
+                <button class="px-8 py-4 border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-all">
+                    Download Brochure
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                        <i data-lucide="globe" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="font-display font-bold text-xl text-white">INCORME</span>
+                </div>
+                <div class="flex gap-6 text-sm">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Contact</a>
+                </div>
+                <p class="text-sm">© 2024 INCORME. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Complete speaker data with full bios from PDF
+        const speakers = [
+            {
+                id: 1,
+                name: "Dr Harry G. Broadman",
+                title: "CEO, Proa Global Partners LLC, USA",
+                bio: `Dr Harry G. Broadman is a 36 year veteran multinational finance C-suite operational executive, independent board director and global strategic advisor to C-suites and boards of U.S. and non-U.S. corporations, banks, private equity firms, pensions, families, and sovereign wealth funds.<br><br>
+                Dr Broadman's operational expertise centres on: negotiating complex cross-border investment and trade transactions; building global supply chains; devising multi-dimensional approaches for risk-mitigation, FCPA compliance and financial control regimes; executing enterprise restructuring; championing proactive stakeholder strategies; and pursuing novel corporate alliances, M&A and JVs, Public-Private Partnerships (PPPs), and Corporate Social Responsibility (CSR) initiatives to foster risk-sharing and enduring market relationships.<br><br>
+                Broadman has extensive hands-on experience across three broad-based industries: Financial Services, especially corporate finance, banking, private equity, asset management, institutional investing and financial controls; Infrastructure Sectors, including logistics, aviation, shipping, rail, trucking, telecoms, utilities, tourism, e-commerce and construction; and Energy, Minerals and Natural Resources Industries. Over his career he's worked at the field level in all advanced economies as well as in 75+ Emerging Markets spanning 5 continents, especially in China, India, ASEAN, LATAM, Eastern Europe, Turkey, the Balkans, Russia, Africa, and the Middle East.<br><br>
+                He is a world renowned authority on global business growth strategy, corporate governance, compliance and innovation, and has published several books and numerous professional articles. He is extensively engaged as an Expert Witness in complex cases on matters involving international trade and investment disputes, antitrust, utility regulation, financial controls, and valuation of economic damages. As a strategic advisor to C-suites and boards. Broadman has worked for companies as diverse as GE, IBM, Coca-Cola, Canon, Exxon-Mobil, Valmet, Corning, Heineken, Merck, Walmart, Deere, the Canadian Pension Plan Investment Board, Intel, ICANN, SunEdison, Illinois Tool Works, Westinghouse, Siemens, Standard Chartered, Microsoft, Manitowoc, PPG, Tyco, Caterpillar, Dow, and Avon.<br><br>
+                Broadman is currently CEO and Managing Partner of an emerging markets-focused investment transaction advisory firm, Proa Global Partners LLC; on the Faculty of Johns Hopkins University; a monthly business columnist for Forbes; Newsweek; and Gulf News; and a Master Workshop Faculty Member for the National Association of Corporate Directors (NACD). He serves as a Non-Executive Board Director of: (i) Armor Text — a cybersecurity software services provider; (ii) Partners Global—an alternative dispute resolution (ADR) firm operating in 22 emerging markets, on which he sits of the Board's Executive Committee and also Chairs the Audit Committee; (iii) The Lake Tanganyika Floating Health Clinic—a cross-border healthcare and telecom services provider in 4 countries in Africa, and (iv) The Global Business School Network—a strategic alliance of advanced and developing country graduate business schools. Earlier he was on the Boards of the (v) Russian-American Chamber of Commerce and (vi) The Corporate Council on Africa. In 2015, Broadman stepped down as Senior Managing Director at Pricewaterhouse Coopers, where he founded and led PwC's Business Growth Strategy Management Consulting Practice, which operated in 20+ countries. He also served as PricewaterhouseCoopers' Chief Economist, working worldwide with PwC's Chairman, CEO and Leadership Team, as well as with PwC's Audit and Tax Practices.<br><br>
+                Earlier, he was Managing Director and on the Investment Committee at Albright Capital Management, a global private equity firm led by Madeleine Albright, and A World Bank official, overseeing the Bank's largest sovereign and enterprise restructuring loans in China and Russia.<br><br>
+                Prior to that, Broadman served in the White House: as United States Assistant Trade Representative, leading negotiations for NAFTA and the WTO, as well as negotiations of all U.S. Bilateral Investment Treaties; as Chief of Staff of the President's Council of Economic Advisers; on the Board of Directors of the Overseas Private Investment Corporation (OPIC); and on the Committee on Foreign Investment in the U.S. (CFIUS). Before coming to the White House, he was Chief Economist of the U.S. Senate Committee on Governmental Affairs, then chaired by John Glenn. Previously, he worked at the RAND Corporation; The Brookings Institution; Resources for the Future, Inc., and on the Harvard University Faculty.<br><br>
+                A lifetime member of the Council on Foreign Relations and The Bretton Woods Committee, Broadman received an A.B. in economics, magna cum laude, from Brown University, where he was elected to Phi Beta Kappa, and a Ph.D. in economics from the University of Michigan in 1981.`
+            },
+            {
+                id: 2,
+                name: "Mr Terry Lewis",
+                title: "Chairman & Founder, 3Gi Technology & RoboShadow, UK",
+                bio: `In my early 20s I did a spell running music-based startups before settling down into a career in Investment Banking technology. I was lucky enough to work all over the world in senior positions for the likes of JP Morgan, Barclays, Credit Suisse and HSBC (Just to name a few!). I worked on projects ranging from Data Centre greenfield builds, through to developing low latency trading execution platforms. During this time I managed global development teams as a software architect, which is where I was able to build a fairly extensive skillset in what is currently known as "DevOps / SecOps" which has allowed a solid backbone for my entrepreneurial career.<br><br>
+                In the later years of my career, I founded 3Gi Technology, who are a global technology engineering firm of 65+ people, specialising in everything from Serverless Cloud Architecture through to AI / Machine learning enablement. 70% of the 3Gi business is supporting Venture Capital or Private Equity backed Scale-Ups and Start-Ups and we also invest and fund our own Start-Up businesses. Most notably RoboShadow, a Cyber Security Start-Up and NCSC for Start-Ups alumni who are currently helping the world level up the Cyber Security gap by providing free internal and external vulnerability assessment capabilities. I also spend time writing code for our new AI powered physical security system which is currently "un-named" as Disney won't let us call it Jarvis. I'm currently the CEO of RoboShadow of which we have just established "Product / Market Fit" and we are now managing the wonders of navigating the business through to profitability in 2023.`
+            },
+            {
+                id: 3,
+                name: "Ms Elizabeth Mahr",
+                title: "Partner & Leader of IBM's Quality Engineering Practice, Canada",
+                bio: `Elizabeth is the Partner and Canadian Leader of IBM's Quality Engineering Practice. Ms Mahr is a passionate advocate of putting quality first in all aspects of software delivery. Elizabeth has dedicated her career to quality transformation and regularly consults companies on leading practices, organisational models and technologies that lead to better business outcomes.<br><br>
+                Elizabeth is also an enthusiastic sales and delivery leader who readily embeds innovation into her client based work. This includes promoting and implementing transformative solutions such as analytics based test modeling & optimization, scriptless automation and AI enabled defect analytics. For her dedication to innovation and leading a talented team of engineers, Elizabeth was recently awarded the NA Software Testing Awards "Testing Leader of the Year".`
+            },
+            {
+                id: 4,
+                name: "Mr Tony Gamby",
+                title: "CEO, PDB Consulting, UK",
+                bio: `Experienced Managing Director with a demonstrated history of working in the banking industry. Skilled in Market Risk, Management, Operations and Accounting Systems, Leadership, and Financial Risk. Strong business development expertise in both in established large corporate organisations and start-up SME's.`
+            },
+            {
+                id: 5,
+                name: "Mr Nigel Biggs",
+                title: "CEO & Innovator, Passionate Innovation Ltd, UK",
+                bio: `Nigel runs Passionate Innovation Ltd to help organisations to build an effective and continuing innovation culture. Nigel was the first chairman of the Surrey Enterprise Hub; he led on Open Innovation for Surrey and the Thames Valley Innovation & Growth Teams; he has been entrepreneur-in-residence at the University of Surrey for nine years.<br><br>
+                After working for twenty years in engineering organisations Nigel founded software company Pixology in 1987 and later launched and sold The Digital Camera Company as the first internet-based camera retailer. Pixology developed the first general image management software for digital cameras; the first software to send pictures over satellite phones; it developed picture tagging and searching 5 years before Flickr; it was the first company in the UK to enable picture printing from retailer web sites and it was the first company in the world to develop red-eye correction in camera! The company floated on AIM in 2003 and Nigel left in 2006.<br><br>
+                He is an entrepreneur, innovator, trained mentor and was recently a UK main stage finalist in the Professional Speaking Association "Speaker Factor" competition.`
+            },
+            {
+                id: 6,
+                name: "Mr David Mahr",
+                title: "Technology Consultant & Business Executive, Canada",
+                bio: `Dave has 25+ years of business development and management experience in leading teams at KPMG, Capgemini, IBM Global Services, NCR. Dave has front line and board experience and is recognized for consulting, sales and marketing expertise in a variety of industries such as: high tech, professional services, retail, and industrial markets. A lifelong learner, he has a BA from Queen's University. HBCOMM and MBA from the University of Windsor, Accredited Outsourcing Practitioner (AOP), Diploma in Digital Strategy and Communications Management from the University of Toronto, and Certified Sales Leader (CSL) designation from Canadian Professional Sales Association. Dave is also a professor of Professional Selling at Sheridan College.`
+            },
+            {
+                id: 7,
+                name: "Prof Geoff Rodgers",
+                title: "Deputy Vice Chancellor, Brunel University, London, UK",
+                bio: `Prof Geoff Rodgers welcomed and supported the INCORME initiative for providing platform to researchers. Prof Rodgers is the 1st speaker of INCORME which started in 2016 and we are very grateful for encouragement given to us.<br><br>
+                Professor Rodgers was appointed to Brunel University in 1989 as a lecturer in Physics, becoming a Reader in Mathematical Physics in 2001 and Professor of Theoretical Physics in 2003. In 2004 he joined the Brunel Graduate School and was appointed Pro-Vice-Chancellor for Research in 2008. He was promoted to Deputy Vice-Chancellor for Research in 2014. He is a Fellow of the Institute of Physics and the Higher Education Academy. He is also a Visiting Professor at the University of Havana, Cuba. Between 2010 and 2014 he chaired the Research Excellence Group of London Higher, made up of the PVCs for Research of the universities in London.<br><br>
+                Professor Rodgers is currently leading the Science and Innovation Audit on Sustainable Airports on behalf of BEIS. As Deputy Vice Chancellor for Research and Innovation Professor Rodgers of responsible for all aspects of the research strategy and operations at Brunel University London. He has lead a number of multi-partner academic projects including NSIRC with TWI, BP, Lloyd's Register and Network Rail, the Women in Engineering Programme and the initiation of a STEM Learning Centre at Brunel.`
+            },
+            {
+                id: 8,
+                name: "Dr Kerry Sullivan",
+                title: "Director of Sulnorth & Co., London, UK",
+                bio: `Dr Kerry Sullivan is highly regarded management consultant, academic and entrepreneur. He has mixed an academic life with a practical career in the property industry. Now a partner at Sulnorth - a redevelopment company he continues teaching on executive MBA programmes across Europe for the International faculty of Sheffield University. He was previously MBA Director at University of Surrey and Head of Estate Management at South Bank University. Over a forty year career he has extensive experience as a consultant and brings a practical expertise to the academic environment.`
+            },
+            {
+                id: 9,
+                name: "Prof Philip Walsh",
+                title: "Ryerson University, Canada",
+                bio: `Dr. Walsh began his professional career working for Union Carbide Exploration on tungsten and precious metal exploration in B.C., Yukon and the Northwest Territories. In 1981 he joined Hudson's Bay Oil and Gas as an oil and gas explorationist in Calgary, Alberta, Canada. In 1984, he returned to Ontario, Canada to take a gas supply operations position with Union Gas Limited. Dr. Walsh managed the geology department and contributed to the evaluation and development of various natural gas storage and production projects. In 1987 he formed a consultancy to provide technical services to natural gas utilities and producers and his clientele have included many of North America's major utilities, a number of governmental and municipal agencies, and various Canadian and British energy consuming organizations.<br><br>
+                In 2003 Dr. Walsh completed his doctoral research into deregulated markets, in particular the Ontario energy market, and was appointed as a Lecturer in Corporate Strategy at the University of Surrey and MBA Programme Director.<br><br>
+                He arrived at Ryerson in 2007 to take the position of Associate Professor, Entrepreneurship & Strategy. Dr. Walsh is the Faculty Advisor for JDC Ryerson, Editor of Entrepreneurial Practice Review, a Fellow of the Ryerson Entrepreneurship Research Institute and a member of the Ryerson Institute for the Study of Corporate Social Responsibility. In addition, he currently acts as the Academic Co-ordinator for the Mining Management program at TRSM and the Chang School.<br><br>
+                Prof. Walsh continues to provide consulting services to the North American and European energy industries. He is a registered professional geoscientist in Alberta and Ontario.`
+            },
+            {
+                id: 10,
+                name: "Dr Stephen Smith",
+                title: "Associate Professor, Brunel Business School, UK",
+                bio: `Stephen Lloyd Smith is a member of Brunel Business School with special interests in emotional labour, practice development, the philosophy of method and in the class origins and emotional basis for the authority exercised by local authorities.<br><br>
+                He is experienced in the use of different forms of applied drama, image work, learning sets (etc) for practice development, especially as a way examining and overcoming impasse. He has worked with Kent Constabulary, the Royal College of Nursing, the Faculty of Occupational Medicine, the air-transport section of the International Transport Workers' Federation and with a number of local authorities and health trusts.<br><br>
+                He was the founding editor of the International Journal of Work Organisation and Emotions and has published papers in several journals including, Local Economy, Science and Public Policy, Sociological Review, Social Science and Medicine, Research Policy, Soundings, Place Branding and Public Diplomacy, the International Small Business Journal and in Philosophy of Management. Recently he was guest editor for two special editions of the International Journal of Work Organisation and Emotions, based on presentations at the Conference on the Future of Feeling. This was one of a series of conferences and seminars which he co-organised.<br><br>
+                Steve has a special interest in the thoughts and writings of Arlie Hochschild. In his estimation 'She is the greatest living sociologist and by far the most acute observer of emotions in public and private life.'<br><br>
+                Main teaching responsibilities cover organisational sociology, doctoral supervision and an MBA module called Managing for the Future. For weekend projects he plays in a nine-piece soul band and is developing a radically new form of electric guitar which he has also patented. He is currently working on the concept of 'Artefact Cafes' (with the School of Engineering and Design), on a Learning Set (with Meretta Elliot from the School of Arts and Kate Darlington, BBS) and on the ritual origins of local emotions (again with Kate Darlington who has chosen this as the focus of her doctoral research).`
+            },
+            {
+                id: 11,
+                name: "Dr Federica Pascale",
+                title: "Anglia Ruskin University, Cambridge, UK",
+                bio: `Dr Federica Pascale is an Associate Professor in Architectural Technology art Anglia Ruskin University, Cambridge and has over a decade international research experience in health and social care environment design, resilience, performance, and impact on the ageing population, and those living with dementia. She was involved in Phase 2 of The Health and Care Infrastructure Research and Innovation Centre (HaCIRIC), a collaboration between Imperial College London and the Universities of Loughborough, Reading and Salford. She worked with the Department of Health on its Dementia Capital Investment Programme and is one of the technical authors of the Health Building Note 08-02. She has been a keynote speaker for the Centre for Health Design and for the Harvard Medical School on resilience of emergency departments.<br><br>
+                In 2015 and 2016, her research was awarded the Emerald Literati Network Awards for Excellence as Highly Commended papers and the Best Non-Student Research Project for "Design for People living with dementia" by Design & Health International Academy Award Categories 2015. Dr Pascale holds BSc (Hons), MSc and PhD.`
+            },
+            {
+                id: 12,
+                name: "Dr Balagouda Patil",
+                title: "Dayananda Sagar Business School, Bangalore, India",
+                bio: `Dr Patil is Professor and Director at DSBS, Bangalore. He has spent considerable time in economic research having policy implications through various sponsored research projects funded by national and international agencies such as IDPAD Netherlands, Ford Foundation, Asian Development Bank, Govt. of India, Various Ministries of State governments and local bodies. The Institutes he was associated with include Centre for Multi-Disciplinary Development Research (CMDR) Dharwad and Institute for Social and Economic Change (ISEC), Bangalore as researcher. During his teaching career he served at various capacities including Professor and Director of reputed B-Schools and Director-Research. He has conducted several workshops, conferences and professional enrichment programmes for working executives both in private and public sectors. To his credit he has several research papers published in reputed peer reviewed journals both at national and international level (UGC-Care, Scopus, ABDC and Web of Science). He is also member of the editorial boards of 'International Journal of Research in Management, Social Sciences and Technology' and 'Asia Pacific Journal of Management and Entrepreneurship Research'. He has delivered several invited lectures at various colleges, universities and institutes in topics such as Personality Development, Leadership skills, The Art of Writing Research Papers etc to name few. He is Visiting Professor at Mzumbe University, Tanzania. He is a proud alumnus of`
+            },
+            {
+                id: 13,
+                name: "Prof Simona Zambelli",
+                title: "University of Bologna, Italy",
+                bio: `Dr Simona Zambelli is Associate Professor of Financial Intermediation at University of Bologna (School of Economics). She holds a Ph.D. in Economics of Financial Intermediation from the University of Siena (Italy); a degree in Economics with a legal focus from University of Bologna (Italy); and a second level postgraduate degree in Finance, with a Mathematical Finance specialization, Birkbeck College.<br><br>
+                After specializing in financing of innovation & venture capital at Harvard Business School (as post-doctoral Research Fellow), she was visiting professor at Rensselaer Polytechnic Institute – RPI (NY, USA); University of Leicester (UK); Westminster University (UK); and York University-Schulich School of Business (Toronto, CA), where she specialized in Private Equity Impact of Financial Regulation. Her main research interests refer to the Entrepreneurial Finance areas, especially: Venture Capital, Private Equity, Financial Regulation Economic Impact, Corporate Governance Impact (especially in terms of Gender Entrepreneurship), Crowdfunding; and Impact Investing. Her research approach is empirical, and she especially enjoys dealing with Law & Finance issues and implications. Dr Zambelli has published several articles in international Journals, including: Journal of Banking and Finance, European Financial Management, International Journal of Management Reviews, as well as books with high rating publishers (such as Oxford University Press).<br><br>
+                She is currently engaged in various research projects and international collaboration, especially with York University (Toronto, Canada) and Leicester University (Leicester, UK), as well as in a number of international exchange programs with IPAG Business School (Paris), and Westminster University (London, UK). More about Prof Zambelli's research, awards and publications is available at`
+            },
+            {
+                id: 14,
+                name: "Dr Kumar Neeraj Jha",
+                title: "IIT Delhi, India",
+                bio: `Dr Kumar Neeraj Jha is a senior academic with the Department of Civil Engineering, Indian Institute of Technology Delhi, India. He started his career with Larsen and Toubro Ltd and was instrumental in successful completion of a number of construction projects such as roads and bridges of national importance. He has published more than 50 papers in a number of international and national journals and conference proceedings. He is currently supervising 2 PhD Students and in addition to that he has supervised more than 54 MEng and PhD successful theses completions of his students.<br><br>
+                His book on 'Construction Project Management' published by Pearson Education and 'Formwork for Concrete Structures' published by Tata McGraw Hill is widely accepted as a text book in different universities. He teaches various courses in construction technology and management. He has conducted a number of training programs for industry and has also been involved with a number of consultancy projects. Dr Jha's areas of specialisation and current interest project performance appraisal, project export, organisation success, construction project management; formwork for concrete structures, construction schedule and factors impacting success of capital intensive projects.`
+            },
+            {
+                id: 15,
+                name: "Dr Sabine Von Oesterreich",
+                title: "Leadership Coach, Frankfurt, Germany",
+                bio: `Dr Sabine von Oesterreich has been assisting executives and teams of high-profile organisations, including numerous DAX listed companies, as a consultant and coach for the past ten years. Prior to this, she worked as a project manager and coach for an international HR consultancy firm for three years. Before that, for ten years, Dr von Oesterreich was a business consultant focusing on strategic development and restructuring in the area of public health for emerging-markets. Following her graduate studies in medicine, Dr von Oesterreich commenced her professional career as an assistant doctor in the internal medicine department at the university hospital in Freiburg, Germany. After that, she held various senior executive positions with team responsibility in the pharmaceutical industry, both in Germany and abroad.<br><br>
+                With background as a medical doctor, Dr von Oesterreich takes a holistic approach to coaching and educating. For more than 20 years, she has had the opportunity to develop an in-depth understanding of the business world, both in Germany and abroad, from the perspective of a manager and consultant. A wide range of proven methods and tools rounds out her consulting expertise. For instance, Dr von Oesterreich combines experience and know-how with empathy and emotional intelligence. Dr von Oesterreich provides top management consulting so that executives can achieve their goals efficiently and effectively with a special focus on advising and coaching executives in times of great change.<br><br>
+                Dr von Oesterreich also supports executives and anyone else for that matter – who wish to reach their personal and professional goals more efficiently. This can help you to create awareness of your own potential, expand your boundaries, realise new perspectives, and transform inner and outer conflicts and challenges into opportunities. The result: to develop fresh ways of thinking and acting – empowered and successful.`
+            },
+            {
+                id: 16,
+                name: "Prof Hardeep Chahal",
+                title: "University of Jammu, India",
+                bio: `Dr Hardeep Chahal is Professor in the Department of Commerce, University of Jammu, India. Her research interests focuses on services marketing with emphasis on consumer satisfaction and loyalty, service quality, brand equity and market orientation. During an academic career spanning 23 years, Prof Chahal has published more than 102 research articles which received 1031 citations. Her research work has been acknowledged in refereed International journals like Managing Service Quality, International Journal of Healthcare Quality and Assurance, International Journal of Bank Marketing, Journal of Relationship Marketing, Journal of Health Management, Journal of Relationship Marketing, Management Research Review, Total Quality Management and Excellence, Corporate Governance, Global Business Review, International Journal of Business and Globalisation, International Journal of Indian Culture, Business and Management, and national journals of International repute like Vikalpa (IIMA), Metamorphosis (IIML), Decisions(IIMC), Journal of Social Work(TISS), Journal of Services Research and Journal of Rural Development.<br><br>
+                She has also co-edited books on Research Methodology in Commerce and Management and Strategic Service Marketing. She currently serves on the editorial boards of the International Journal of Health Quality and Assurance (Emerald) and Journal of Services Research (IIMT, India). Prof Chahal has successfully supervised 11 PhD candidates and is currently supervising 7 PhD students. She is a recipient of an Award of Excellence for Best Reviewer during 2011 by International Journal of Health Quality and Assurance (Emerald). She has been on a visiting fellowship to University of Loughborough, UK under Commonwealth Fellowship Scheme (British Academy Award) and also to Gandhi Institute of Business and Technology, Jakarta, Indonesia.`
+            },
+            {
+                id: 17,
+                name: "Mr Hamayun Aslam Bhutta",
+                title: "FINCA Microfinance Bank, Pakistan",
+                bio: `Mr Bhutta started his professional career in 1998 from Union Bank as Business Development Consultant. He has a vast experience spread over almost two decades and worked with National & Multinational Banks like Union Bank, Bank Alfalah and FINCA Microfinance Bank. He attained his master's degree from UCP Pakistan in the majors of Business Administration. He is certified TQM and HR professional and additionally holder of Six Sigma Green Belt from Singapore Quality Institution. He is member of Pakistan Banking association. Being a seasonal Customer Experience professional, he has developed complete E2E Customer Experience and TQM Models for Bank Alfalah, Kashaf Foundation and Hush Puppies after making extensive research and surveys. He has also provided consulting and training services to Business Development, Customer Experience, Lean Management, Talent Management, and Strategic Management.<br><br>
+                He is associated with Bank Alfalah, KASHF Foundation, ICI Pakistan, PEL Pakistan, Changhong Ruba and Metro Cash & Carry Pakistan to deliver trainings as Guest Speaker and Trainer. Currently at FINCA Microfinance Bank and he is heading the deposits portfolio and customer experience and leading the workforce of 500+ employees.`
+            },
+            {
+                id: 18,
+                name: "Ms Alexandra Cass",
+                title: "Chemical & Bioprocess Engineer, London, UK",
+                bio: `Ms Cass is a Principal Process Engineer and Consultant based in Advisian's London office. Her experience spans a wide range of technologies, and across the Asset lifecycle from Concept, through major project delivery, to Operations. She uses Strategic Decision techniques to integrate Non-Technical risks into Conceptual studies because she believes that understanding the context improves the quality of our engineering decisions. Alex has worked in a range of roles including R&D, process design, plant operations and commissioning. She has specialist technology experience in cryogenics, syngas processing, hydrogen, GTL/CTL, offshore gas and heavy oil. She has been the Process lead on major projects including detailed design of an offshore gas development in the UK North Sea, and FEED of a steam flood heavy oil onshore development in the Middle East.<br><br>
+                Ms Cass has been instrumental in integrating Advisian's EcoNomicsTM decision support capability and analysis of non-technical risks into our technical consulting studies. She is also an experienced workshop facilitator able to draw on both her varied technical background and her knowledge of structured decision analysis techniques. Alex delivers internal training courses on presentation skills, workshop facilitation and risk management and is a BELBIN® team roles accredited practitioner.`
+            },
+            {
+                id: 19,
+                name: "Dr Nor Aida Rahman",
+                title: "University of Kuala Lumpur, Malaysia",
+                bio: `Dr Nor Aida Rahman serves as a head of aviation management at University Kuala Lumpur, MIAT campus. She has more than 15 years of research and teaching experience. She earned her PhD degree in Management (Supply Chain Management) from Brunel University, London, UK in 2012; BBA (Finance) and M.Edu Business Entrepreneurship) from National University, Malaysia. Her research work has appeared in several reputed academic journals, book chapter and refereed conference proceedings. She has written three postgraduate research textbooks.<br><br>
+                She is actively involved in research projects focusing on logistics service quality, halal logistics branding, supply chain relationship, relationship marketing and halal logistics & distribution. She is a chartered member for Chartered Institute of Logistics and Transport Malaysia (CILTM), PSMB Certified Trainer and a member of Academy of Marketing, UK.<br><br>
+                Dr Nor Aida has also secured several research grants funded by Ministry of Higher Education, Malaysia and for University of Kuala Lumpur. She has also been a track chair and invited speaker for numerous research workshop and training in Malaysia. She is also a panel member for Halal Logistics standard MS2400 part-1, part-2 and part-3; technical committee for TC10 Halal supply chain for SMIIC and academic advisor (Aviation Management Program) to the Cybernetics College in Malaysia.`
+            },
+            {
+                id: 20,
+                name: "Prof Padma Srinivasan",
+                title: "Acharya Business School, Bangalore, India",
+                bio: `Dr Padma Srinivasan is Professor & Group Research Head of Acharya Business School, Bangalore, India. She has more than 30 years of experience in industry as HR Head & in academics teaching MBA & PhD. Dr Padma is 5 times Best Research Paper Award winner – International and National; author of 4 books and a consulting editor of ICFAI journal of Risk & Insurance.<br><br>
+                She holds Masters in Commerce, FCS (Chartered Company Secretary), ACMA (Certified Cost accountant) and PhD in finance & strategy. Dr Padma is an Entrepreneur Educator of NEN, IIMB, Stanford, ISB, SP Jain Educator 10K programme. She represented NEN on Goldman Sach's Round Table on 10K Women Entrepreneurs, Executive committee member of Karnataka SME association, Mentor of Start-Up winning VC funding at IIM Kolkata's B Plan Contest, Speaker at Global Young Entrepreneurs Forum, IIT Bombay, a Visiting Faculty to Indonesia (Solo City) & Malaysia (Kuching) on Research methodology. She has also been a track chair and key note speaker for numerous conferences and reviewer for International research journals.`
+            },
+            {
+                id: 21,
+                name: "Dr Pantea Foroudi",
+                title: "Middlesex University, London",
+                bio: `Dr Pantea Foroudi (PhD, FHEA, MSc (Honors), MA, BA (Honors)) is a member of the Marketing, Branding, and Tourism, Middlesex University London and is Business Manager and Solution Architect. She earned her PhD from Brunel University London and completed her MA in Marketing and Communication Management, University of The Arts London (LCC), UK and MSc in Graphic Design from Azad University, Tehran, Iran.<br><br>
+                Pantea started her corporate career in 1996. She has more than two decades of experience as a creative innovator and practical problem-solver in Visual Identity, Graphic Design, and Branding in different sectors such as Airlines and Travels; Arts and Entertainment; Automotive; Banking; Fashion and Retail; Healthcare and Hospitality; Institutions and Non-profits organizations. She developed a mainstream interest in higher education marrying research and practice to help managers and decision makers to collaborate with designers in a mutual understanding of the concept to enrich the outcome.<br><br>
+                She designed more than 120 Logos such as EmpIndex Ltd; Tehran General Hospital; Sheez Restaurant and Coffee Shop; and won prize for Poster of the Year during the 22 Bahman Festivals; Photography; Kufi Calligraphy Prize in Tehran, Iran. Her research interests include marketing, branding, communications, visual identity/design, Stakeholders, and social media, and e-marketing from a multi-disciplinary approach. Dr Foroudi has published widely in international academic journals such as Journal of Business Research, European Journal of Marketing, and so on. She has presented at numerous conferences, workshops, and universities. She is the Guest Editor of Journal of Business Research and Qualitative Market Research: An International Journal.`
+            },
+            {
+                id: 22,
+                name: "Dr Mehdi Sarsar",
+                title: "S'team Management, Paris, France",
+                bio: `Dr Mehdi Sarsar is a senior consultant and an executive doctor in Business administration. He received a doctorate from the Paris school of Business, an advanced master in Entrepreneurship from HEC University of Liège and an MSc in Electronics and Automation from the Bordeaux university of Science and technology.`
+            },
+            {
+                id: 23,
+                name: "Mr Aiyed Rikabawi",
+                title: "Australian Arab Institute, Australia",
+                bio: `Aiyed is a highly regarded cultural ambassador, senior industry expert and global networker. Starting a professional career in Iraqi Airforce more than 30 years ago, Mr Rikabawi has achieved list of distinctive professional targets in his multi-role and multi-industry work experience. His recent work includes establishing a cultural and business exchange hub for Arab and Australian communities which would ultimately benefit both populations across the continents. Mr. Rikabawi holds degrees in Engineering, Arts and Management.`
+            },
+            {
+                id: 24,
+                name: "Prof Vilmantė Kumpikaitė-Valiūnienė",
+                title: "Kaunas University of Technology, Lithuania",
+                bio: `Dr Vilmantė Kumpikaitė is a professor of Human Resource Management in Digitalization Research group and a head of International Migration Research cluster at Kaunas University of Technology, Lithuania. She is a trainer of competence development center for university teachers Edu_Lab at Kaunas University of Technology. Her major fields of scientific research include international human resource management, especially expatriation; modern teaching methods, including case studies, distance learning and ICT usage.<br><br>
+                Prof Vilmante is the author and coauthor of more than 80 scientific publications and textbooks, member of different societies as, Academy of Management (AOM), European Academy of management (EURAM), European group for Organizational Studies (EGOS), IEDRC member of conferences' scientific boards, a member of editorial board of scientific journals; participated in more than 50 scientific conferences in all continents, and delivered 9 keynote speeches.<br><br>
+                Professor has experience creating distance courses in Management and Economics and teaching them from 2005 using WebCT and Moodle. Totally she have prepared 12 distance courses. Professor Vilmante delivered the 1st massive open online course (MOOC) from Lithuania in 2013.`
+            },
+            {
+                id: 25,
+                name: "Dr Vishvesh Pathak",
+                title: "Strategic Ratings, London, UK",
+                bio: `Dr Vishvesh Pathak is the founding director of INRME, INCORME and CEO 24x7 Limited. He has more than 19 years of work experience in consulting, higher education, construction and manufacturing industries. His expertise includes corporate strategy, credit ratings, business process optimisation and organisational performance management.<br><br>
+                Recently his innovative credit risk measurement model proved that it has better predictive power of credit worthiness or credit risk of large multinational companies traded on London, New York and Bombay stock exchanges which include 100 index constituent companies from FTSE 100(UK100), DJIA (US30), S&P500 and BSE SENSEX in seven manufacturing and service sectors.<br><br>
+                His teaching interests include strategic management, operations management, organisational behaviour and performance management and research methods. His research is focussed on strategy, credit risk and ratings, corporate reliability analyses and equities research.<br><br>
+                He has obtained PhD in Credit ratings from Brunel University, MBA from University of Surrey, Certificate of Teaching in Higher Education from Brunel University, Diploma in Export-Import Management from Indian Institute of Materials Management and BEng in Civil Engineering from National Institute of Technology Calicut (formerly REC Calicut), India.`
+            },
+            {
+                id: 26,
+                name: "Ms Christina Demetriades",
+                title: "Personal Leadership Coach, Cyprus",
+                bio: `Christina empowers and motivates people for conscious, meaningful, fulfilling living. Through her personal leadership coaching and guidance, she helps her clients develop skills of effective self-management, i.e. be their 'best selves' in any context. She focusses on self-knowledge, confident self-presentation, creative solution finding and resilience, on both personal and professional levels.<br><br>
+                Her aim as a Coach and Trainer is to facilitate positive transformation and to contribute to the development of a culture of peace, starting from the personal level, to the communal and to the global level. Christina holds a degree in Philosophy (1st Class Honours, University of Bristol), Master's degrees in International Relations (London School of Economics and Political Science) and in Guidance (University of West of England, Bristol), as well as a professional qualification in Career Guidance (Career Development Institute) – most of which she gained on merit-based scholarships. She is a member of the highly esteemed European Mentoring and Coaching Council (EMCC), as well as the new Vice-President of`
+            },
+            {
+                id: 27,
+                name: "Mr Ullash Hazarika",
+                title: "Data Analytics Consultant, London, UK",
+                bio: `Ullash is a consultant with more than a decade experience in delivering data analytics solutions to globally leading companies in retail, banking, insurance, travel & telecom sectors. He holds an MBA from University of Oxford, Said Business School and a Masters in Information Systems from Monash University, Australia and Bachelors in Engineering from National Institute of Technology (NIT) Calicut, India.`
+            },
+            {
+                id: 28,
+                name: "Dr Bahtiar Mohamad",
+                title: "University Utara, Malaysia",
+                bio: `Dr Mohamad is an Associate Professor in Communication Department at School of Multimedia Technology and Communication in Universiti Utara Malaysia (UUM). With a degree in Business Administration from National University of Malaysia; a Master of Science from Universiti Putra Malaysia, and a PhD in Marketing from Brunel University London, United Kingdom, Bahtiar has been serving Universiti Utara Malaysia for approximately 15 years. Formerly, he served as a Head of Communication Department, Faculty of Communication and Modern Languages, UUM for 3 years from 2005-2008. He teaches public relations, corporate communication, communication for managers and organizational image management, which all combine to support his hybrid profession linking communication with the business world.<br><br>
+                In recent years, his publication and research interests have focused on corporate communication and public relations. Dr Bahtiar has published several articles in international journals, including: Corporate Communication: An International Journal, Journal of Intercultural Research, Journal of Asian Pacific Communication, as well as books with high ranking publishers such as Cencage Learning. He is carrying out research in the area of corporate identity, corporate image, crisis communication and corporate branding from the point of view of public relations and corporate communication. He is Member of Institute of Public Relations Malaysia (MIPR), European Communication Research and Education Association (ECREA) and Pacific & Asia Communication Association (PACA). He is currently appointed as a Visiting Scholar at Faculty of Business, Curtin University and Asian Institute of Management.`
+            }
+        ];
+
+        let currentSpeaker = null;
+        let isBioExpanded = false;
+        let allSpeakersVisible = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initFeaturedSpeakers();
+            initAllSpeakers();
+        });
+
+        function initFeaturedSpeakers() {
+            const container = document.getElementById('featuredSpeakers');
+            const featured = speakers.slice(0, 6);
+            
+            featured.forEach((speaker) => {
+                const card = createSpeakerCard(speaker);
+                container.appendChild(card);
+            });
+            
+            lucide.createIcons();
+        }
+
+        function initAllSpeakers() {
+            const container = document.getElementById('allSpeakersGrid');
+            const remaining = speakers.slice(6);
+            
+            remaining.forEach((speaker) => {
+                const card = createSpeakerCard(speaker);
+                container.appendChild(card);
+            });
+        }
+
+        function createSpeakerCard(speaker) {
+            const div = document.createElement('div');
+            div.className = 'speaker-card group cursor-pointer';
+            div.innerHTML = `
+                <div class="relative aspect-square rounded-2xl overflow-hidden mb-3 bg-gradient-to-br from-slate-200 to-slate-300 border-2 border-transparent hover:border-blue-500 transition-all" onclick="openBio(${speaker.id})">
+                    <div class="absolute inset-0 flex items-center justify-center text-slate-400">
+                        <i data-lucide="user" class="w-12 h-12"></i>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                            <i data-lucide="info" class="w-4 h-4 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="font-semibold text-sm text-center text-slate-900 group-hover:text-blue-600 transition-colors leading-tight" onclick="openBio(${speaker.id})">${speaker.name}</h3>
+            `;
+            return div;
+        }
+
+        function toggleAllSpeakers() {
+            const container = document.getElementById('allSpeakersContainer');
+            const btn = document.getElementById('viewAllBtn');
+            const icon = document.getElementById('viewAllIcon');
+            const text = btn.querySelector('span');
+            
+            allSpeakersVisible = !allSpeakersVisible;
+            
+            if (allSpeakersVisible) {
+                container.classList.remove('hidden');
+                text.textContent = 'Hide All Speakers';
+                icon.style.transform = 'rotate(180deg)';
+                lucide.createIcons();
+            } else {
+                container.classList.add('hidden');
+                text.textContent = 'View All Speakers';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function openBio(speakerId) {
+            const speaker = speakers.find(s => s.id === speakerId);
+            if (!speaker) return;
+            
+            currentSpeaker = speaker;
+            isBioExpanded = false;
+            
+            document.getElementById('modalName').textContent = speaker.name;
+            document.getElementById('modalTitle').textContent = speaker.title;
+            document.getElementById('modalBio').innerHTML = speaker.bio;
+            document.getElementById('modalBio').classList.remove('expanded');
+            document.getElementById('readMoreBtn').style.display = 'block';
+            document.getElementById('readMoreBtn').innerHTML = '<span>Read more</span><i data-lucide="chevron-down" class="w-5 h-5"></i>';
+            
+            document.getElementById('bioModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            lucide.createIcons();
+        }
+
+        function closeBio() {
+            document.getElementById('bioModal').classList.remove('active');
+            document.body.style.overflow = '';
+            currentSpeaker = null;
+        }
+
+        function closeBioOnBackground(event) {
+            if (event.target === document.getElementById('bioModal')) {
+                closeBio();
+            }
+        }
+
+        function toggleBioExpand() {
+            const bioText = document.getElementById('modalBio');
+            const btn = document.getElementById('readMoreBtn');
+            
+            isBioExpanded = !isBioExpanded;
+            
+            if (isBioExpanded) {
+                bioText.classList.add('expanded');
+                btn.innerHTML = '<span>Show less</span><i data-lucide="chevron-up" class="w-5 h-5"></i>';
+            } else {
+                bioText.classList.remove('expanded');
+                btn.innerHTML = '<span>Read more</span><i data-lucide="chevron-down" class="w-5 h-5"></i>';
+                bioText.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            lucide.createIcons();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeBio();
+            }
+        });
+    </script>
+</body>
+</html>
